@@ -24,7 +24,9 @@ window.onload = function init() {
   // Specify a starting point p for our iterations
   // p must lie inside any set of three vertices
 
-  var p = vec2(100, 100);
+  var u = add(vertices[0], vertices[1]);
+  var v = add(vertices[0], vertices[2]);
+  var p = scale(0.25, add(u, v));
 
   // And, add our initial point into our array of points
 
@@ -35,8 +37,17 @@ window.onload = function init() {
   // last point and a randomly chosen vertex
 
   for (var i = 0; points.length < NumPoints; ++i) {
-    var j = Math.floor(Math.random() * 3);
-    p = vec2(100, 100);
+    const result = (() => {
+      const randomValue = Math.random();
+      if (randomValue < 0.9) {
+        return 0;
+      } else if (randomValue < 0.95) {
+        return 1;
+      } else {
+        return 2;
+      }
+    })();
+    var j = result;
     p = add(points[i], vertices[j]);
     p = scale(0.5, p);
     points.push(p);
